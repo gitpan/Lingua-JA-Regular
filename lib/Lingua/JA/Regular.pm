@@ -2,7 +2,7 @@ package Lingua::JA::Regular;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 use 5.005;
 use Jcode;
@@ -14,6 +14,7 @@ use vars qw(
 	$ZENKAKU_ASCII
 	$KATAKANA
 	$HIRAGANA
+	$CHARACTER_STRICT_REGEX
 	$CHARACTER_UNDEF_REGEX
 
 	%KANJI_ALT_TABLE
@@ -198,10 +199,33 @@ sub mac {
 sub geta {
 	my $self = shift;
 
-	$self->{str} =~ s/$CHARACTER_UNDEF_REGEX/\xA2\xAE/g;
+	#
+	# EUC-JP undef character to GETA
+	#
+	$self->{str} =~ s/$CHARACTER_UNDEF_REGEX/\xA2\xAE/go;
+
+	#
+	# measures of binary code
+	# - delete EUC-JP character
+	# - binary to GETA
+	#
+	my $tmp = $self->{str};
+	$tmp =~ s/$CHARACTER_STRICT_REGEX/ /go;
+	$tmp =~ s/^\s+//;
+	$tmp =~ s/\s+$//;
+
+	for my $undef (split /\s+/, $tmp) {
+		$self->{str} =~
+			s/
+				(?<!\x8F)
+				$undef
+				(?=(?:[\xA1-\xFE][\xA1-\xFE])*(?:[\x00-\x7F\x8E\x8F]|\z))
+			/\xA2\xAE/x;
+	}
 
 	return $self;
 }
+
 
 sub regular {
 	my $self = shift;
@@ -345,7 +369,7 @@ into an alternative character.
 
 =item win
 
-The model dependence character of Windos is changed
+The model dependence character of Windows is changed
 into an alternative character.
 
 =item mac

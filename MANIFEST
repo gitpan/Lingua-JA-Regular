@@ -1,5 +1,5 @@
 Changes
-MANIFEST
+MANIFEST			This list of files
 Makefile.PL
 README
 lib/Lingua/JA/Regular.pm
@@ -12,6 +12,7 @@ t/01_euc.t
 t/02_sjis.t
 t/03_jis.t
 t/04_utf8.t
+t/05_binary.t
 t/text/jis.txt
 t/text/sjis.txt
 t/text/utf8.txt
