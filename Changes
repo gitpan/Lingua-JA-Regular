@@ -1,5 +1,9 @@
 Revision history for Perl extension Lingua::JA::Regular
 
+0.08 Tue Jan 27 16:41:53 2004
+	* [Fixed bug] lc -> CORE::lc, uc -> CORE::uc
+	  (Thanks to Tatsuhiko Miyagawa)
+
 0.07 Fri Sep 26 17:14:21 2003
 	* [Fixed bug] KATAKANA, HIRAGANA update / deserted character("WO", "PU") 
 	- Lingua::JA::Regular::Table(0.04)

@@ -2,7 +2,7 @@ package Lingua::JA::Regular;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 use 5.005;
 use Jcode;
@@ -73,13 +73,13 @@ sub strip {
 
 sub uc {
 	my $self = shift;
-	$self->{str} = uc $self->{str};
+	$self->{str} = CORE::uc $self->{str};
 	return $self;
 }
 
 sub lc {
 	my $self = shift;
-	$self->{str} = lc $self->{str};
+	$self->{str} = CORE::lc $self->{str};
 	return $self;
 
 }
@@ -232,11 +232,13 @@ sub regular {
 
 	$self->strip->linefeed->z_kana->h_ascii->kanji;
 
-	if ($ENV{HTTP_USER_AGENT} =~ /Windows/) {
-		$self->win;
-	}
-	elsif ($ENV{HTTP_USER_AGENT} =~ /Mac/) {
-		$self->mac;
+	if (defined $ENV{HTTP_USER_AGENT}) {
+		if ($ENV{HTTP_USER_AGENT} =~ /Windows/) {
+			$self->win;
+		}
+		elsif ($ENV{HTTP_USER_AGENT} =~ /Mac/) {
+			$self->mac;
+		}
 	}
 
 	return $self->geta->to_s;
