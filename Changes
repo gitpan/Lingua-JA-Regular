@@ -1,5 +1,9 @@
 Revision history for Perl extension Lingua::JA::Regular
 
+0.05  Wed May  7 11:27:41 2003
+	- Fixed bug Lingua::JA::Regular::Table there was no "SOKUON-MOJI",
+	  it adds.
+
 0.04  Fri May  2 16:36:53 2003
     - Execution of the method  mac() and win() in regular().
 
