@@ -2,7 +2,7 @@ package Lingua::JA::Regular;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 use 5.005;
 use Jcode;
