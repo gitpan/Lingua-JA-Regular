@@ -1,0 +1,33 @@
+Lingua::JA::Regular
+==============================
+
+Regularize of the Japanese character
+
+Converts platform specific charactes to standard characters.
+
+Converts multi byte(Japanese) alphanumeric and symbolcharacters to
+single byte characters.
+
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  Jcode
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2003 KIMURA, takefumi
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
+

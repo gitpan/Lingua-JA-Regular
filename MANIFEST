@@ -1,0 +1,17 @@
+Changes
+MANIFEST
+Makefile.PL
+README
+lib/Lingua/JA/Regular.pm
+lib/Lingua/JA/Regular/Table.pm
+lib/Lingua/JA/Regular/Table/Kanji.pm
+lib/Lingua/JA/Regular/Table/Macintosh.pm
+lib/Lingua/JA/Regular/Table/Windows.pm
+t/00_compile.t
+t/01_euc.t
+t/02_sjis.t
+t/03_jis.t
+t/04_utf8.t
+t/text/jis.txt
+t/text/sjis.txt
+t/text/utf8.txt
