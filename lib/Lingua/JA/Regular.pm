@@ -2,7 +2,7 @@ package Lingua::JA::Regular;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 use 5.005;
 use Jcode;
@@ -44,7 +44,7 @@ sub to_s {
 
 	if (defined $self->{icode}) {
 		my $icode = $self->{icode};
-		$self->{str} = Jcode->new($self->{str}, 'euc')->$icode;
+		$self->{str} = Jcode->new($self->{str}, 'euc')->$icode();
 	}
 
     return $self->{str};

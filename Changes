@@ -1,4 +1,8 @@
 Revision history for Perl extension Lingua::JA::Regular
 
+0.02  Thu Feb 27 18:33:59 2003
+	- Fixed bug it becomes an error by Perl 5.005_03.
+	  (Thanks to Tatsuhiko Miyagawa)
+
 0.01  Thu Feb 27 12:12:38 2003
 	- original version
