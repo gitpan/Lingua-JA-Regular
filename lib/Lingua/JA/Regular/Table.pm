@@ -82,6 +82,8 @@ KIMURA, takefumi E<lt>takefumi@takefumi.comE<gt>
 
 =head1 SEE ALSO
 
-L<Lingua::JA::Regular>
+L<Lingua::JA::Regular>,
+L<http://www.din.or.jp/~ohzaki/perl.htm#Character>,
+L<http://www.din.or.jp/~ohzaki/perl.htm#JP_Match>,
 
 =cut
