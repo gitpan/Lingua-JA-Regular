@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::JA::Regular
 
+0.04  Fri May  2 16:36:53 2003
+    - Execution of the method  mac() and win() in regular().
+
 0.03  Sun Mar  2 16:45:55 2003
 	- Added to Lingua::JA::Regular::Table::Kanji
 

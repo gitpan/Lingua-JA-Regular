@@ -2,7 +2,7 @@ package Lingua::JA::Regular;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 use 5.005;
 use Jcode;
@@ -10,23 +10,23 @@ use Jcode;
 use Lingua::JA::Regular::Table;
 
 use vars qw(
-    $HANKAKU_ASCII
-    $ZENKAKU_ASCII
-    $KATAKANA
-    $HIRAGANA
-    $CHARACTER_UNDEF_REGEX
+	$HANKAKU_ASCII
+	$ZENKAKU_ASCII
+	$KATAKANA
+	$HIRAGANA
+	$CHARACTER_UNDEF_REGEX
 
-    %KANJI_ALT_TABLE
-    %WIN_ALT_TABLE
-    %MAC_ALT_TABLE
+	%KANJI_ALT_TABLE
+	%WIN_ALT_TABLE
+	%MAC_ALT_TABLE
 );
 
 use overload '""' => \&to_s;
 
 sub new {
-    my $class = shift;
-    my $str   = shift;
-    my $icode = shift || getcode($str);
+	my $class = shift;
+	my $str   = shift;
+	my $icode = shift || getcode($str);
 
 	if (defined $icode and $icode =~ /^(:?jis|sjis|utf8)$/) {
 		return bless {
@@ -40,173 +40,182 @@ sub new {
 }
 
 sub to_s {
-    my $self = shift;
+	my $self = shift;
 
 	if (defined $self->{icode}) {
 		my $icode = $self->{icode};
 		$self->{str} = Jcode->new($self->{str}, 'euc')->$icode();
 	}
 
-    return $self->{str};
+	return $self->{str};
 }
 
 sub linefeed {
-    my $self = shift;
-    my $lf   = shift;
+	my $self = shift;
+	my $lf   = shift;
 
-    $lf = "\n" unless(defined $lf);
+	$lf = "\n" unless(defined $lf);
 
-    $self->{str} =~ s/\r\n|\r|\n/$lf/g;
+	$self->{str} =~ s/\r\n|\r|\n/$lf/g;
 
-    return $self;
+	return $self;
 }
 
 sub strip {
-    my $self = shift;
+	my $self = shift;
 
-    $self->{str} =~ s/^\s+//;
-    $self->{str} =~ s/\s+$//;
+	$self->{str} =~ s/^\s+//;
+	$self->{str} =~ s/\s+$//;
 
-    return $self;
+	return $self;
 }
 
 sub uc {
-    my $self = shift;
-    $self->{str} = uc $self->{str};
-    return $self;
+	my $self = shift;
+	$self->{str} = uc $self->{str};
+	return $self;
 }
 
 sub lc {
-    my $self = shift;
-    $self->{str} = lc $self->{str};
-    return $self;
+	my $self = shift;
+	$self->{str} = lc $self->{str};
+	return $self;
 
 }
 
 sub z_ascii {
-    my $self = shift;
-    Jcode->new(\$self->{str}, 'euc')->tr('-', "\xA1\xDD");
-    Jcode->new(\$self->{str}, 'euc')->tr($HANKAKU_ASCII, $ZENKAKU_ASCII);
-    return $self;
+	my $self = shift;
+	Jcode->new(\$self->{str}, 'euc')->tr('-', "\xA1\xDD");
+	Jcode->new(\$self->{str}, 'euc')->tr($HANKAKU_ASCII, $ZENKAKU_ASCII);
+	return $self;
 }
 
 sub h_ascii {
-    my $self = shift;
+	my $self = shift;
 
-    Jcode->new(\$self->{str}, 'euc')->tr("\xA1\xDD", '-');
-    Jcode->new(\$self->{str}, 'euc')->tr($ZENKAKU_ASCII, $HANKAKU_ASCII);
+	Jcode->new(\$self->{str}, 'euc')->tr("\xA1\xDD", '-');
+	Jcode->new(\$self->{str}, 'euc')->tr($ZENKAKU_ASCII, $HANKAKU_ASCII);
 
-    return $self;
+	return $self;
 }
 
 sub z_kana {
-    my $self = shift;
+	my $self = shift;
 
-    Jcode->new(\$self->{str}, 'euc')->h2z;
+	Jcode->new(\$self->{str}, 'euc')->h2z;
 
-    return $self;
+	return $self;
 }
 
 sub h_kana {
-    my $self = shift;
+	my $self = shift;
 
-    Jcode->new(\$self->{str}, 'euc')->z2h;
+	Jcode->new(\$self->{str}, 'euc')->z2h;
 
-    return $self;
+	return $self;
 }
 
 sub z_space {
-    my $self = shift;
+	my $self = shift;
 
-    Jcode->new(\$self->{str}, 'euc')->tr(' ', "\xA1\xA1");
+	Jcode->new(\$self->{str}, 'euc')->tr(' ', "\xA1\xA1");
 
-    return $self;
+	return $self;
 }
 
 sub h_space {
-    my $self = shift;
+	my $self = shift;
 
-    Jcode->new(\$self->{str}, 'euc')->tr("\xA1\xA1", ' ');
+	Jcode->new(\$self->{str}, 'euc')->tr("\xA1\xA1", ' ');
 
-    return $self;
+	return $self;
 }
 
 sub z_strip {
-    my $self = shift;
+	my $self = shift;
 
-    $self->{str} =~ s/^(?:\xA1\xA1|\s)+//;
-    $self->{str} =~ s/(?:\xA1\xA1|\s)+$//;
+	$self->{str} =~ s/^(?:\xA1\xA1|\s)+//;
+	$self->{str} =~ s/(?:\xA1\xA1|\s)+$//;
 
-    return $self;
+	return $self;
 }
 
 sub hiragana {
-    my $self = shift;
+	my $self = shift;
 
-    Jcode->new(\$self->{str}, 'euc')->tr($KATAKANA, $HIRAGANA);
+	Jcode->new(\$self->{str}, 'euc')->tr($KATAKANA, $HIRAGANA);
 
-    return $self;
+	return $self;
 }
 
 sub katakana {
-    my $self = shift;
+	my $self = shift;
 
-    Jcode->new(\$self->{str}, 'euc')->tr($HIRAGANA, $KATAKANA);
+	Jcode->new(\$self->{str}, 'euc')->tr($HIRAGANA, $KATAKANA);
 
-    return $self;
+	return $self;
 }
 
 sub kanji {
-    my $self = shift;
+	my $self = shift;
 
-    require Lingua::JA::Regular::Table::Kanji;
-    import  Lingua::JA::Regular::Table::Kanji;
+	require Lingua::JA::Regular::Table::Kanji;
+	import  Lingua::JA::Regular::Table::Kanji;
 
-    $self->{str} =~ s{($CHARACTER_UNDEF_REGEX)}{
-        defined($KANJI_ALT_TABLE{$1})? $KANJI_ALT_TABLE{$1} : $1
-    }ogex;
+	$self->{str} =~ s{($CHARACTER_UNDEF_REGEX)}{
+		defined($KANJI_ALT_TABLE{$1})? $KANJI_ALT_TABLE{$1} : $1
+	}ogex;
 
-    return $self;
+	return $self;
 }
 
 sub win {
-    my $self = shift;
+	my $self = shift;
 
-    require Lingua::JA::Regular::Table::Windows;
-    import  Lingua::JA::Regular::Table::Windows;
+	require Lingua::JA::Regular::Table::Windows;
+	import  Lingua::JA::Regular::Table::Windows;
 
-    $self->{str} =~ s{($CHARACTER_UNDEF_REGEX)}{
-        defined($WIN_ALT_TABLE{$1})? $WIN_ALT_TABLE{$1} : $1
-    }ogex;
+	$self->{str} =~ s{($CHARACTER_UNDEF_REGEX)}{
+		defined($WIN_ALT_TABLE{$1})? $WIN_ALT_TABLE{$1} : $1
+	}ogex;
 
-    return $self;
+	return $self;
 }
 
 sub mac {
-    my $self = shift;
+	my $self = shift;
 
-    require Lingua::JA::Regular::Table::Macintosh;
-    import  Lingua::JA::Regular::Table::Macintosh;
+	require Lingua::JA::Regular::Table::Macintosh;
+	import  Lingua::JA::Regular::Table::Macintosh;
 
-    $self->{str} =~ s{($CHARACTER_UNDEF_REGEX)}{
-        defined($MAC_ALT_TABLE{$1})? $MAC_ALT_TABLE{$1} : $1
-    }ogex;
+	$self->{str} =~ s{($CHARACTER_UNDEF_REGEX)}{
+		defined($MAC_ALT_TABLE{$1})? $MAC_ALT_TABLE{$1} : $1
+	}ogex;
 
-    return $self;
+	return $self;
 }
 
 sub geta {
-    my $self = shift;
+	my $self = shift;
 
-    $self->{str} =~ s/$CHARACTER_UNDEF_REGEX/\xA2\xAE/g;
+	$self->{str} =~ s/$CHARACTER_UNDEF_REGEX/\xA2\xAE/g;
 
-    return $self;
+	return $self;
 }
 
 sub regular {
-    my $self = shift;
+	my $self = shift;
 
-    return $self->strip->linefeed->z_kana->h_ascii->kanji->geta->to_s;
+	$self->strip->linefeed->z_kana->h_ascii->kanji;
+
+	if ($ENV{HTTP_USER_AGENT} =~ /Windows/) {
+		$self->win;
+	}
+	elsif ($ENV{HTTP_USER_AGENT} =~ /Mac/) {
+		$self->mac;
+	}
+
+	return $self->geta->to_s;
 }
 
 1;
@@ -219,6 +228,9 @@ Lingua::JA::Regular - Regularize of the Japanese character.
 
 
 =head1 SYNOPSIS
+
+  my $string = Lingua::JA::Regular->new($string)->regular;
+
 
   my $regular = Lingua::JA::Regular->new($string);
 
@@ -348,13 +360,16 @@ The model dependence character is changed into an GETA.
 =item regular
 
 It is the same as the result which performed strip,
-linefeed, z_kana, h_ascii, kanji, geta, and the to_s method.
+linefeed, z_kana, h_ascii, kanji, (win|mac) ,geta, and the to_s method.
 
 =back
 
 =head1 AUTHOR
 
 KIMURA, takefumi E<lt>takefumi@takefumi.comE<gt>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
