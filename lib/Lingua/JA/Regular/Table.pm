@@ -9,21 +9,21 @@ require Exporter;
 @ISA    = qw(Exporter);
 
 use vars qw(
-	$HANKAKU_ASCII
-	$ZENKAKU_ASCII
-	$KATAKANA
-	$HIRAGANA
-	$CHARACTER_STRICT_REGEX
-	$CHARACTER_UNDEF_REGEX
+    $HANKAKU_ASCII
+    $ZENKAKU_ASCII
+    $KATAKANA
+    $HIRAGANA
+    $CHARACTER_STRICT_REGEX
+    $CHARACTER_UNDEF_REGEX
 );
 
 @EXPORT = qw(
-	$HANKAKU_ASCII
-	$ZENKAKU_ASCII
-	$KATAKANA
-	$HIRAGANA
-	$CHARACTER_STRICT_REGEX
-	$CHARACTER_UNDEF_REGEX
+    $HANKAKU_ASCII
+    $ZENKAKU_ASCII
+    $KATAKANA
+    $HIRAGANA
+    $CHARACTER_STRICT_REGEX
+    $CHARACTER_UNDEF_REGEX
 );
 
 
@@ -43,23 +43,23 @@ $HIRAGANA = qq{\xA4\xA2\xA4\xA4\xA4\xA6\xA4\xA8\xA4\xAA\xA4\xAB\xA4\xAD\xA4\xAF\
 # EUC-JP文字(機種依存文字・未定義領域・3バイト文字を含まない)
 #
 $CHARACTER_STRICT_REGEX = qr{
-	(?<!\x8F)
-	(?: [\x00-\x7F]|                          # ASCII
-		\x8E[\xA1-\xDF]|                       # 半角カタカナ
-		[\xA1\xB0-\xCE\xD0-\xF3][\xA1-\xFE]|   # 1,16-46,48-83区
-		\xA2[\xA1-\xAE\xBA-\xC1\xCA-\xD0\xDC-\xEA\xF2-\xF9\xFE]| # 2区
-		\xA3[\xB0-\xB9\xC1-\xDA\xE1-\xFA]|     # 3区
-		\xA4[\xA1-\xF3]|                       # 4区
-		\xA5[\xA1-\xF6]|                       # 5区
-		\xA6[\xA1-\xB8\xC1-\xD8]|              # 6区
-		\xA7[\xA1-\xC1\xD1-\xF1]|              # 7区
-		\xA8[\xA1-\xC0]|                       # 8区
-		\xCF[\xA1-\xD3]|                       # 47区
-		\xF4[\xA1-\xA6]                        # 84区
-	)
-	(?= (?:[\xA1-\xFE][\xA1-\xFE])* # JIS X 0208 が 0文字以上続いて
-		(?:[\x00-\x7F\x8E\x8F]|\z)  # ASCII, SS2, SS3 または終端
-	)
+    (?<!\x8F)
+    (?: [\x00-\x7F]|                          # ASCII
+        \x8E[\xA1-\xDF]|                       # 半角カタカナ
+        [\xA1\xB0-\xCE\xD0-\xF3][\xA1-\xFE]|   # 1,16-46,48-83区
+        \xA2[\xA1-\xAE\xBA-\xC1\xCA-\xD0\xDC-\xEA\xF2-\xF9\xFE]| # 2区
+        \xA3[\xB0-\xB9\xC1-\xDA\xE1-\xFA]|     # 3区
+        \xA4[\xA1-\xF3]|                       # 4区
+        \xA5[\xA1-\xF6]|                       # 5区
+        \xA6[\xA1-\xB8\xC1-\xD8]|              # 6区
+        \xA7[\xA1-\xC1\xD1-\xF1]|              # 7区
+        \xA8[\xA1-\xC0]|                       # 8区
+        \xCF[\xA1-\xD3]|                       # 47区
+        \xF4[\xA1-\xA6]                        # 84区
+    )
+    (?= (?:[\xA1-\xFE][\xA1-\xFE])* # JIS X 0208 が 0文字以上続いて
+        (?:[\x00-\x7F\x8E\x8F]|\z)  # ASCII, SS2, SS3 または終端
+    )
 }x;
 
 
@@ -67,23 +67,23 @@ $CHARACTER_STRICT_REGEX = qr{
 # EUC-JP未定義文字(機種依存文字・補助漢字)にマッチする正規表現
 #
 $CHARACTER_UNDEF_REGEX = qr{
-	(?<!\x8F)
-	(?: [\xA9-\xAF\xF5-\xFE][\xA1-\xFE]|                      # 9-15,85-94区
-		\x8E[\xE0-\xFE]|                                      # 半角カタカナ
-		\xA2[\xAF-\xB9\xC2-\xC9\xD1-\xDB\xEB-\xF1\xFA-\xFD]|  # 2区
-		\xA3[\xA1-\xAF\xBA-\xC0\xDB-\xE0\xFB-\xFE]|           # 3区
-		\xA4[\xF4-\xFE]|                                      # 4区
-		\xA5[\xF7-\xFE]|                                      # 5区
-		\xA6[\xB9-\xC0\xD9-\xFE]|                             # 6区
-		\xA7[\xC2-\xD0\xF2-\xFE]|                             # 7区
-		\xA8[\xC1-\xFE]|                                      # 8区
-		\xCF[\xD4-\xFE]|                                      # 47区
-		\xF4[\xA7-\xFE]|                                      # 84区
-		\x8F[\xA1-\xFE][\xA1-\xFE]                            # 3バイト文字
-	)
-	(?= (?:[\xA1-\xFE][\xA1-\xFE])* # JIS X 0208 が 0文字以上続いて
-		(?:[\x00-\x7F\x8E\x8F]|\z)  # ASCII, SS2, SS3 または終端
-	)
+    (?<!\x8F)
+    (?: [\xA9-\xAF\xF5-\xFE][\xA1-\xFE]|                      # 9-15,85-94区
+        \x8E[\xE0-\xFE]|                                      # 半角カタカナ
+        \xA2[\xAF-\xB9\xC2-\xC9\xD1-\xDB\xEB-\xF1\xFA-\xFD]|  # 2区
+        \xA3[\xA1-\xAF\xBA-\xC0\xDB-\xE0\xFB-\xFE]|           # 3区
+        \xA4[\xF4-\xFE]|                                      # 4区
+        \xA5[\xF7-\xFE]|                                      # 5区
+        \xA6[\xB9-\xC0\xD9-\xFE]|                             # 6区
+        \xA7[\xC2-\xD0\xF2-\xFE]|                             # 7区
+        \xA8[\xC1-\xFE]|                                      # 8区
+        \xCF[\xD4-\xFE]|                                      # 47区
+        \xF4[\xA7-\xFE]|                                      # 84区
+        \x8F[\xA1-\xFE][\xA1-\xFE]                            # 3バイト文字
+    )
+    (?= (?:[\xA1-\xFE][\xA1-\xFE])* # JIS X 0208 が 0文字以上続いて
+        (?:[\x00-\x7F\x8E\x8F]|\z)  # ASCII, SS2, SS3 または終端
+    )
 }x;
 
 

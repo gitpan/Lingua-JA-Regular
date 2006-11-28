@@ -1,5 +1,5 @@
 Changes
-MANIFEST			This list of files
+MANIFEST            This list of files
 Makefile.PL
 README
 lib/Lingua/JA/Regular.pm
@@ -18,3 +18,4 @@ t/07_mac.t
 t/text/jis.txt
 t/text/sjis.txt
 t/text/utf8.txt
+META.yml                                 Module meta-data (added by MakeMaker)

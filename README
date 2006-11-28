@@ -104,8 +104,8 @@ METHODS
         The model dependence character is changed into an GETA.
 
     regular
-        It is the same as the result which performed strip, linefeed,
-        z_kana, h_ascii, kanji, (win|mac) ,geta, and the to_s method.
+        It is the same as the result which performed strip, (win|mac),
+        linefeed, z_kana, h_ascii, kanji, ,geta, and the to_s method.
 
 AUTHOR
     KIMURA, takefumi <takefumi@takefumi.com>
@@ -117,4 +117,6 @@ SEE ALSO
     Jcode, Lingua::JA::Regular::Table, Lingua::JA::Regular::Table::Kanji,
     Lingua::JA::Regular::Table::Macintosh,
     Lingua::JA::Regular::Table::Windows
+
+    <http://code.mfac.jp/trac/browser/CPAN/takefumi/Lingua-JA-Regular/>
 

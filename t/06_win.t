@@ -6,11 +6,11 @@ use vars qw(%WIN_ALT_TABLE);
 
 use Test::More tests => scalar(keys %WIN_ALT_TABLE);
 
-	$ENV{HTTP_USER_AGENT} = "Windows";
+    $ENV{HTTP_USER_AGENT} = "Windows";
 
-	while (my ($key, $value) = each %WIN_ALT_TABLE) {
-		my $regular = Lingua::JA::Regular->new($key)->regular;
-		ok $regular eq $value, $value;
-	}
+    while (my ($key, $value) = each %WIN_ALT_TABLE) {
+        my $regular = Lingua::JA::Regular->new($key)->regular;
+        ok $regular eq $value, $value;
+    }
 
 
